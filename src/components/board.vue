@@ -37,6 +37,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+$backColor: #5c1308;
+//$backColor: #2c2c2c;
 #container {
   width: 540px;
   height: 540px;
@@ -47,7 +49,7 @@ export default {
     flex-grow: 0;
     flex-shrink: 0;
     display: flex;
-    background-color: #5c1308;
+    background-color: $backColor;
     .letter {
       flex-basis: 60px;
       color: white;
@@ -59,7 +61,7 @@ export default {
     flex-direction: row;
     #left {
       flex-basis: 30px;
-      background-color: #5c1308;
+      background-color: $backColor;
       color: white;
       flex-shrink: 0;
       display: flex;
@@ -108,12 +110,12 @@ export default {
     }
     #right {
       flex-basis: 30px;
-      background-color: #5c1308;
+      background-color: $backColor;
     }
   }
   #bottom {
     flex-basis: 30px;
-    background-color: #5c1308;
+    background-color: $backColor;
     flex-shrink: 0;
   }
 }

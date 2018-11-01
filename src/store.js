@@ -7,46 +7,28 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    stamp: Date.now(),
-    score: {
-      W: 0,
-      B: 0
-    },
-    transcripts: [],
+    transcript: [],
     turn: "B",
     items: {},
     letters: ["a", "b", "c", "d", "e", "f", "g", "h"],
     numbers: ["1", "2", "3", "4", "5", "6", "7", "8"]
   },
-  getters: {
-    items(state) {
-      return state.items;
-    }
-  },
   mutations: {
     init: state => {
-      Util.init(state);
-      Util.updateAttackable(state);
+      let _state = { ...state };
+      _state = Util.init(_state);
+      state.turn = _state.turn;
+      state.items = Object.assign({}, _state.items);
     },
     play: (state, payload) => {
-      console.log("played", payload);
-      let item = state.items[payload.l][payload.n];
-      Util.update(state, item);
+      let _state = { ...state };
+      _state = Util.update(_state, payload.l, payload.n);
+      state.turn = _state.turn;
+      state.items = Object.assign({}, _state.items);
     }
   },
   actions: {}
 });
-
-class Square {
-  state = "E";
-  l;
-  n;
-  attackable = false;
-  constructor(l, n) {
-    this.l = l;
-    this.n = n;
-  }
-}
 
 /*
 let Util = {

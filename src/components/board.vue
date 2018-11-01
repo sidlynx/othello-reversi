@@ -1,21 +1,26 @@
 <template>
-  <div id="container">
-    <div id="top">
-      <div class="letter" style="flex-basis:30px;"></div>
-      <div class="letter center-vertical center-horizontal" v-for="(v,i) in ['a','b','c','d','e','f','g','h']" :key="i">{{v}}</div>
-    </div>
-    <div id="middle">
-      <div id="left">
-        <div class="number center-vertical center-horizontal" v-for="(v,i) in [1,2,3,4,5,6,7,8]" :key="i">{{v}}</div>
+  <div id="main">
+    <div id="container">
+      <div id="top">
+        <div class="letter" style="flex-basis:30px;"></div>
+        <div class="letter center-vertical center-horizontal" v-for="(v,i) in ['a','b','c','d','e','f','g','h']" :key="i">{{v}}</div>
       </div>
-      <div id="board">
-        <div class="col" v-for="(l,i) in ['a','b','c','d','e','f','g','h']" :key="l">
-          <square v-for="(n,j) in ['1','2','3','4','5','6','7','8']" :key="l + n" :l="l" :n="n" />
+      <div id="middle">
+        <div id="left">
+          <div class="number center-vertical center-horizontal" v-for="(v,i) in [1,2,3,4,5,6,7,8]" :key="i">{{v}}</div>
         </div>
+        <div id="board">
+          <div class="col" v-for="(l,i) in ['a','b','c','d','e','f','g','h']" :key="l">
+            <square v-for="(n,j) in ['1','2','3','4','5','6','7','8']" :key="l + n" :l="l" :n="n" />
+          </div>
+        </div>
+        <div id="right"></div>
       </div>
-      <div id="right"></div>
+      <div id="bottom"></div>
     </div>
-    <div id="bottom"></div>
+    <div class="info">
+      turn : {{$store.state.turn}}
+    </div>
   </div>
 </template>
 <script>

@@ -11,7 +11,7 @@ let Util = {
     state.items["d"]["5"].state = "B";
     state.items["e"]["4"].state = "B";
     state.items["e"]["5"].state = "W";
-    Util.update(state);
+    return Util.update(state);
   },
   updateAttackable: state => {
     state.letters.forEach(l => {
@@ -216,6 +216,7 @@ let Util = {
   },
   getTrappableSquares(state, l, n) {
     let item = state.items[l][n];
+    if (item.state !== "E") return [];
     let itemLIndex = state.letters.indexOf(item.l);
     let itemNIndex = state.numbers.indexOf(item.n);
     let i = itemLIndex;
@@ -400,11 +401,14 @@ let Util = {
     } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
     return trappableItems;
   },
-  update(state, playedSquare) {
-    if (playedSquare) {
-      playedSquare.trappableSquares.forEach(square => {
+  update(state, l, n) {
+    if (l && n) {
+      let square = state.items[l][n];
+      square.trappableSquares.forEach(square => {
         square.state = state.turn;
       });
+
+      square.state = state.turn;
       state.turn = state.turn === "B" ? "W" : "B";
     }
 
@@ -414,6 +418,7 @@ let Util = {
         square.trappableSquares = Util.getTrappableSquares(state, l, n);
       });
     });
+    return state;
   }
 };
 

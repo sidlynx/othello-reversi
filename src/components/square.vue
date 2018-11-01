@@ -1,7 +1,7 @@
 <template>
   <div class="square" @click="play">
     <div class="disc" :class="{'W':item.state === 'W','B':item.state === 'B','W attackable':item.state === 'E' && turn === 'W' && !!item.trappableSquares.length,'B attackable':item.state === 'E' && turn === 'B' && !!item.trappableSquares.length}">
-      {{item.state}}
+      <span v-if="item.trappableSquares.length">{{item.trappableSquares.length}}</span>
     </div>
   </div>
 </template>
@@ -33,6 +33,8 @@ export default {
     play() {
       if (!!this.item.trappableSquares.length)
         this.$store.commit("play", { l: this.item.l, n: this.item.n });
+      //this.$store.state.items[this.l][this.n].state = "B";
+      console.log("t");
     }
   }
 };
@@ -51,6 +53,9 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &.B {
       background-color: #000;
     }

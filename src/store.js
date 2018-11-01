@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Util from "./util.js";
+import { utils } from "mocha";
 
 Vue.use(Vuex);
 
@@ -12,7 +14,9 @@ export default new Vuex.Store({
     },
     transcripts: [],
     turn: "B",
-    items: {}
+    items: {},
+    letters: ["a", "b", "c", "d", "e", "f", "g", "h"],
+    numbers: ["1", "2", "3", "4", "5", "6", "7", "8"]
   },
   getters: {
     items(state) {
@@ -21,81 +25,13 @@ export default new Vuex.Store({
   },
   mutations: {
     init: state => {
-      let items = {};
-      let numbers = ["1", "2", "3", "4", "5", "6", "7", "8"];
-      let letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
-      /*
-      for(let i=0;i<8;i++){
-        for(let j=0;j<8;j++){
-          items
-        }
-      }
-      //*/
-
-      letters.forEach(l => {
-        items[l] = {};
-        numbers.forEach(n => {
-          items[l][n] = new Square(l, n);
-        });
-      });
-      items["d"]["4"].state = "W";
-      items["d"]["5"].state = "B";
-      items["e"]["4"].state = "B";
-      items["e"]["5"].state = "W";
-
-      items["c"]["4"].attackable = true;
-      items["d"]["3"].attackable = true;
-      items["e"]["6"].attackable = true;
-      items["f"]["5"].attackable = true;
-
-      state.items = items;
+      Util.init(state);
+      Util.updateAttackable(state);
     },
     play: (state, payload) => {
-      //state.test = "changed";
-      console.log("called");
-      //state.stamp = Date.now();
-      let letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
-      let numbers = ["1", "2", "3", "4", "5", "6", "7", "8"];
-      let itemLIndex = letters.indexOf(payload.l);
-      let itemNIndex = numbers.indexOf(payload.n);
-      let otherFound = false;
-      let trappedItems = [];
-      //0
-
-      otherFound = false;
-      trappedItems = [];
-      for (let i = itemNIndex - 1; i >= 0; i--) {
-        let nextItem = state.items[letters[itemLIndex]][numbers[i]];
-
-        if (nextItem.state == "E") {
-          break;
-        } else if (nextItem.state == state.turn) {
-          //Sandwich
-          otherFound = true;
-
-          trappedItems.forEach(item => {
-            //item.state = state.turn;
-            let _item = Object.assign({}, item);
-            _item.state = state.turn;
-            //state.items[item.l].splice(item.n, 1, _item);
-            state.items[item.l][item.n].state = state.turn;
-            //Vue.set(state.items[item.l][item.n], "state", state.turn);
-          });
-          break;
-        }
-
-        if (nextItem.state != state.turn) {
-          trappedItems.push(nextItem);
-        }
-      }
-      //45
-      //90
-      //135
-      //180
-      //225
-      //270
-      //315
+      console.log("played", payload);
+      let item = state.items[payload.l][payload.n];
+      Util.update(state, item);
     }
   },
   actions: {}
@@ -111,3 +47,182 @@ class Square {
     this.n = n;
   }
 }
+
+/*
+let Util = {
+  init: state => {
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8"];
+    let letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+    letters.forEach(l => {
+      state.items[l] = {};
+      numbers.forEach(n => {
+        state.items[l][n] = new Square(l, n);
+      });
+    });
+    state.items["d"]["4"].state = "W";
+    state.items["d"]["5"].state = "B";
+    state.items["e"]["4"].state = "B";
+    state.items["e"]["5"].state = "W";
+  },
+  updateAttackable: state => {
+    state.letters.forEach(l => {
+      state.numbers.forEach(n => {
+        state.items[l][n].attackable = Util.isAttackable(state, l, n);
+      });
+    });
+  },
+  isAttackable(state, l, n) {
+    let item = state.items[l][n];
+    let itemLIndex = state.letters.indexOf(item.l);
+    let itemNIndex = state.numbers.indexOf(item.n);
+    let i = itemLIndex;
+    let j = itemNIndex;
+    let sandwich = false;
+    let trappedItems = [];
+    //0
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      j--;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+
+    //45
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      i++;
+      j++;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+
+    //90
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      i++;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+
+    //135
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      i++;
+      j--;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+    //180
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      j++;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+    //225
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      i--;
+      j++;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+    //270
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      i--;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+    //315
+    i = itemLIndex;
+    j = itemNIndex;
+    trappedItems = [];
+    sandwich = false;
+    do {
+      i--;
+      j--;
+      let nextItem = state.items[state.letters[i]][state.numbers[j]];
+      if (nextItem.state == "E") break;
+      else if (nextItem.state == state.turn) {
+        sandwich = true;
+        //to do
+        return true;
+      } else {
+        trappedItems.push(nextItem);
+      }
+    } while (0 <= i && i <= 7 && 0 <= j && j <= 7);
+  }
+};
+//*/

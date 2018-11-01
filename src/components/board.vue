@@ -10,12 +10,7 @@
       </div>
       <div id="board">
         <div class="col" v-for="(l,i) in ['a','b','c','d','e','f','g','h']" :key="l">
-          <square v-for="(n,j) in [1,2,3,4,5,6,7,8]" :key="l + n" :l="l" :n="n" />
-          <!--div class="row" v-for="(valRow,indexRow) in Object.keys(board[valCol])" :key="indexRow">
-                        <div class="disc" :class="[board[valCol][valRow]]">
-
-                        </div>
-                    </div-->
+          <square v-for="(n,j) in ['1','2','3','4','5','6','7','8']" :key="l + n" :l="l" :n="n" />
         </div>
       </div>
       <div id="right"></div>

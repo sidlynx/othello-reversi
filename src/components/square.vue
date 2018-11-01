@@ -1,6 +1,7 @@
 <template>
   <div class="square" @click="play">
-    <div class="disc" :class="{'W':item.state === 'W','B':item.state === 'B','W attackable':item.state === 'E' && turn === 'W' && !!item.attackable,'B attackable':item.state === 'E' && turn === 'B' && !!item.attackable}">
+    <div class="disc" :class="{'W':item.state === 'W','B':item.state === 'B','W attackable':item.state === 'E' && turn === 'W' && !!item.trappableSquares.length,'B attackable':item.state === 'E' && turn === 'B' && !!item.trappableSquares.length}">
+      {{item.state}}
     </div>
   </div>
 </template>
@@ -14,9 +15,9 @@ export default {
       validator: val => ["a", "b", "c", "d", "e", "f", "g", "h"].includes(val)
     },
     n: {
-      type: Number,
+      type: String,
       required: true,
-      validator: val => [1, 2, 3, 4, 5, 6, 7, 8].includes(val)
+      validator: val => ["1", "2", "3", "4", "5", "6", "7", "8"].includes(val)
     }
   },
   computed: {
@@ -30,10 +31,8 @@ export default {
   },
   methods: {
     play() {
-      if (!!this.item.attackable)
+      if (!!this.item.trappableSquares.length)
         this.$store.commit("play", { l: this.item.l, n: this.item.n });
-
-      //this.$forceUpdate();
     }
   }
 };

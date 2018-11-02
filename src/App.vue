@@ -4,7 +4,9 @@
       <app-header />
     </div>
     <div id="content">
-      <router-view />
+      <div class="page">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -32,8 +34,13 @@ export default {
   #content {
     flex-basis: 100%;
     display: flex;
-    align-items: center;
+    //align-items: center;
     justify-content: center;
+    .page {
+      width: 1200px;
+      border-left: 1px solid grey;
+      border-right: 1px solid grey;
+    }
   }
 }
 </style>

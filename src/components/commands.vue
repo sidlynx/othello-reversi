@@ -3,7 +3,7 @@
     <div class="square init" @click="init" title="init">
       <i class="fas fa-times"></i>
     </div>
-    <div class="square help" title="help">
+    <div class="square help" title="help" @click="help">
       <i class="fas fa-question"></i>
     </div>
     <div class="square undo" @click="undo" title="undo">
@@ -25,6 +25,9 @@ export default {
     },
     undo() {
       this.$store.commit("undo");
+    },
+    help() {
+      window.open("https://en.wikipedia.org/wiki/Reversi");
     }
   },
   components: {

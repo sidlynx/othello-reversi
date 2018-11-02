@@ -20,6 +20,13 @@
       <div id="bottom"></div>
     </div>
     <info />
+    <div class="from-transcript">
+      <textarea placeholder="Paste your transcript here in this form: e6,f4,c3,e7"></textarea>
+      <div class="center-horizontal">
+        <button>Load transcript</button>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
@@ -144,5 +151,12 @@ $backColor: #4d4d4d;
 .center-vertical {
   display: flex;
   align-items: center;
+}
+
+.from-transcript {
+  textarea {
+    width: 100%;
+    height: 100px;
+  }
 }
 </style>

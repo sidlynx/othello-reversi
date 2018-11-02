@@ -49,8 +49,8 @@ export default {
   justify-content: center;
   align-items: center;
   .disc {
-    width: 56px;
-    height: 56px;
+    width: 50px;
+    height: 50px;
     background-color: transparent;
     display: block;
     border-radius: 50%;

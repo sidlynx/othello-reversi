@@ -37,9 +37,9 @@ export default {
     //align-items: center;
     justify-content: center;
     .page {
-      width: 1200px;
-      border-left: 1px solid grey;
-      border-right: 1px solid grey;
+      width: 1020px;
+      //border-left: 1px solid grey;
+      //border-right: 1px solid grey;
     }
   }
 }

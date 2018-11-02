@@ -29,19 +29,36 @@ export default new Vuex.Store({
       state.letters.forEach(l => {
         state.numbers.forEach(n => {
           let item = state.items[l][n];
-          if (item.state === "B") score++;
+          if (item.state === "W") score++;
         });
       });
       return score;
     },
     canPlay(state) {
+      let attackableSquaresCount = 0;
       state.letters.forEach(l => {
         state.numbers.forEach(n => {
           let item = state.items[l][n];
-          if (item.trappableSquares.length) return true;
+          if (item.trappableSquares.length) {
+            attackableSquaresCount++;
+          }
         });
       });
-      return false;
+      return attackableSquaresCount > 0;
+    },
+    blackTranscript(state) {
+      let transcript = [];
+      for (let i = 0; i < state.transcript.length; i++) {
+        if (i % 2 == 1) transcript.push(state.transcript[i]);
+      }
+      return transcript;
+    },
+    whiteTranscript(state) {
+      let transcript = [];
+      for (let i = 0; i < state.transcript.length; i++) {
+        if (i % 2 == 0) transcript.push(state.transcript[i]);
+      }
+      return transcript;
     }
   },
   mutations: {

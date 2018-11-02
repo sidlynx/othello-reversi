@@ -20,7 +20,6 @@ let Util = {
     let itemNIndex = state.numbers.indexOf(item.n);
     let i = itemLIndex;
     let j = itemNIndex;
-    let sandwich = false;
     let trappedItems = [];
     let trappableItems = [];
     let nextItem = null;
@@ -28,7 +27,6 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
     nextItem = null;
     do {
       j--;
@@ -39,7 +37,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -53,7 +51,7 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
+    //sandwich = false;
     nextItem = null;
     do {
       i++;
@@ -65,7 +63,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -79,7 +77,7 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
+    //sandwich = false;
     do {
       i++;
       try {
@@ -89,7 +87,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -103,7 +101,6 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
     nextItem = null;
     do {
       i++;
@@ -115,7 +112,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -129,7 +126,6 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
     nextItem = null;
     do {
       j++;
@@ -140,7 +136,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -153,7 +149,6 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
     nextItem = null;
     do {
       i--;
@@ -165,7 +160,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -178,7 +173,6 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
     nextItem = null;
     do {
       i--;
@@ -189,7 +183,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });
@@ -202,7 +196,6 @@ let Util = {
     i = itemLIndex;
     j = itemNIndex;
     trappedItems = [];
-    sandwich = false;
     nextItem = null;
     do {
       i--;
@@ -214,7 +207,7 @@ let Util = {
       }
       if (!nextItem || nextItem.state == "E") break;
       else if (nextItem.state == state.turn) {
-        sandwich = true;
+        //sandwich = true;
         trappedItems.forEach(item => {
           trappableItems.push({ l: item.l, n: item.n });
         });

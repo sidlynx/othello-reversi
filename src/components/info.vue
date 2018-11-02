@@ -7,7 +7,7 @@
             <div class="x">
                 <i class="fas fa-star"></i>
             </div>
-            <div class="score">{{scoreB}}</div>
+            <div class="score">{{$store.getters.scoreB}}</div>
         </div>
         <div class="right">
             <div class="disc">
@@ -16,34 +16,13 @@
             <div class="x">
                 <i class="fas fa-star"></i>
             </div>
-            <div class="score">{{scoreW}}</div>
+            <div class="score">{{$store.getters.scoreW}}</div>
         </div>
     </div>
 </template>
 <script>
 export default {
-  computed: {
-    scoreB() {
-      let score = 0;
-      this.$store.state.letters.forEach(l => {
-        this.$store.state.numbers.forEach(n => {
-          let item = this.$store.state.items[l][n];
-          if (item.state === "B") score++;
-        });
-      });
-      return score;
-    },
-    scoreW() {
-      let score = 0;
-      this.$store.state.letters.forEach(l => {
-        this.$store.state.numbers.forEach(n => {
-          let item = this.$store.state.items[l][n];
-          if (item.state === "W") score++;
-        });
-      });
-      return score;
-    }
-  }
+  computed: {}
 };
 </script>
 <style lang="scss" scoped>

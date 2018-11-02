@@ -227,16 +227,22 @@ let Util = {
   },
   play(state, l, n) {
     if (l && n) {
-      state._history.push(Util.copy(state));
+      let move = {
+        l,
+        n,
+        attackedSquares: []
+      };
       let square = state.items[l][n];
       square.trappableSquares.forEach(square => {
         state.items[square.l][square.n].state = state.turn;
+        move.attackedSquares.push({ l: square.l, n: square.n });
       });
 
       square.state = state.turn;
       state.turn = state.turn === "B" ? "W" : "B";
+      state.transcript.push(move);
     } else {
-      state._history = [];
+      state.transcript = [];
       state.turn = "B";
     }
 
@@ -249,26 +255,29 @@ let Util = {
     return state;
   },
   undo(state) {
-    if (state._history.length) {
-      let toState = Util.copy(state._history[state._history.length - 1]);
-      state = Util.copy(toState);
+    if (state.transcript.length) {
+      let move = Util.copy(state.transcript[state.transcript.length - 1]);
+      state.items[move.l][move.n].state = "E";
+      move.attackedSquares.forEach(square => {
+        state.items[square.l][square.n].state =
+          state.items[square.l][square.n].state === "W" ? "B" : "W";
+      });
+      state.turn = state.turn === "W" ? "B" : "W";
+      state.transcript.splice(-1, 1);
+
+      //update attackableSquares
+      state.letters.forEach(l => {
+        state.numbers.forEach(n => {
+          let square = state.items[l][n];
+          square.trappableSquares = Util.getTrappableSquares(state, l, n);
+        });
+      });
     }
     return state;
   },
   copy(src) {
     return JSON.parse(JSON.stringify(src));
   }
-  /*
-  copy(src) {
-    let target = {};
-    for (let prop in src) {
-      if (src.hasOwnProperty(prop)) {
-        target[prop] = src[prop];
-      }
-    }
-    return target;
-  }
-  //*/
 };
 
 export default Util;

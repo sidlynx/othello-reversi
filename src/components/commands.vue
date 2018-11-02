@@ -9,7 +9,11 @@
         <div class="square undo" @click="undo" title="undo">
             <i class="fas fa-undo"></i>
         </div>
-        <div class="winner">Black player Wins</div>
+        <div class="winner">
+            <div v-if="$store.getters.canPlay">
+                <span v-if="$store.getters.scoreB > $store.getters.scoreW">Black</span><span v-if="$store.getters.scoreW > $store.getters.scoreB">White</span> player Wins
+            </div>
+        </div>
     </div>
 </template>
 <script>

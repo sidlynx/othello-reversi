@@ -59,6 +59,16 @@ export default new Vuex.Store({
         if (i % 2 == 0) transcript.push(state.transcript[i]);
       }
       return transcript;
+    },
+    strTranscript(state) {
+      let str = "";
+      state.transcript.forEach(move => {
+        str += move.l + move.n + ",";
+      });
+      if (str.endsWith(",")) {
+        str = str.substring(0, str.length - 1);
+      }
+      return str;
     }
   },
   mutations: {

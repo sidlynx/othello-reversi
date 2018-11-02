@@ -6,6 +6,7 @@ import router from "./router";
 Vue.config.productionTip = false;
 
 import "./style/app.scss";
+import "@fortawesome/fontawesome-free/js/all";
 
 new Vue({
   store,

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
+      <app-header />
     </div>
     <div id="content">
       <router-view />
@@ -9,7 +10,11 @@
 </template>
 
 <script>
+import AppHeader from "./components/layout/header.vue";
 export default {
+  components: {
+    AppHeader
+  },
   created() {
     this.$store.commit("init");
   }

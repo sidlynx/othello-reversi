@@ -1,5 +1,6 @@
 <template>
   <div id="main">
+    <commands />
     <div id="container">
       <div id="top">
         <div class="letter" style="flex-basis:30px;"></div>
@@ -18,13 +19,13 @@
       </div>
       <div id="bottom"></div>
     </div>
-    <div class="info">
-      turn : {{$store.state.turn}}
-    </div>
+    <info />
   </div>
 </template>
 <script>
 import Square from "./square.vue";
+import Info from "./info.vue";
+import Commands from "./commands.vue";
 export default {
   computed: {
     items() {
@@ -32,91 +33,106 @@ export default {
     }
   },
   components: {
-    Square
+    Square,
+    Info,
+    Commands
   }
 };
 </script>
 <style lang="scss" scoped>
 $backColor: #5c1308;
-//$backColor: #2c2c2c;
-#container {
-  width: 540px;
-  height: 540px;
-  display: flex;
-  flex-direction: column;
-  #top {
-    flex-basis: 30px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    display: flex;
-    background-color: $backColor;
-    .letter {
-      flex-basis: 60px;
-      color: white;
-    }
+$backColor: #4d4d4d;
+#main {
+  #commands {
+    border: 1px solid grey;
+    height: 60px;
+    background-color: orange;
   }
-  #middle {
-    flex-basis: 100%;
+  #container {
+    width: 540px;
+    height: 540px;
     display: flex;
-    flex-direction: row;
-    #left {
+    flex-direction: column;
+    #top {
       flex-basis: 30px;
-      background-color: $backColor;
-      color: white;
+      flex-grow: 0;
       flex-shrink: 0;
       display: flex;
-      flex-direction: column;
-      .number {
+      background-color: $backColor;
+      .letter {
         flex-basis: 60px;
+        color: white;
+        font-weight: bold;
       }
     }
-    #board {
-      //border: 1px solid #000;
-      width: 480px;
-      height: 480px;
+    #middle {
+      flex-basis: 100%;
       display: flex;
       flex-direction: row;
-      color: white;
-      .col {
-        flex-basis: 60px;
+      #left {
+        flex-basis: 30px;
+        background-color: $backColor;
+        color: white;
+        flex-shrink: 0;
         display: flex;
         flex-direction: column;
-        .row {
+        .number {
+          flex-basis: 60px;
+          font-weight: bold;
+        }
+      }
+      #board {
+        //border: 1px solid #000;
+        width: 480px;
+        height: 480px;
+        display: flex;
+        flex-direction: row;
+        color: white;
+        .col {
           flex-basis: 60px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid #000;
-          background-color: #009c4e;
-          color: #000;
-          .disc {
-            background-color: transparent;
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            &.B {
-              background-color: #000;
-            }
-            &.W {
-              background-color: #fff;
-            }
-            &.E {
+          flex-direction: column;
+          .row {
+            flex-basis: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000;
+            background-color: #009c4e;
+            color: #000;
+            .disc {
               background-color: transparent;
+              display: block;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              &.B {
+                background-color: #000;
+              }
+              &.W {
+                background-color: #fff;
+              }
+              &.E {
+                background-color: transparent;
+              }
             }
           }
         }
       }
+      #right {
+        flex-basis: 30px;
+        background-color: $backColor;
+      }
     }
-    #right {
+    #bottom {
       flex-basis: 30px;
       background-color: $backColor;
+      flex-shrink: 0;
     }
   }
-  #bottom {
-    flex-basis: 30px;
-    background-color: $backColor;
-    flex-shrink: 0;
+  #info {
+    background-color: orange;
+    height: 60px;
   }
 }
 

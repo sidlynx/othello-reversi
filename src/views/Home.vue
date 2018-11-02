@@ -19,7 +19,7 @@ export default {
 .home {
   .board {
     //background-color: green;
-    //background-image: url("https://3dexport.com/items/2017/08/17/464228/177032/20_dark_wood_background_textures_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_1909494_o.jpg");
+    background-image: url("https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/1869921/1360/906/m1/fpnw/wm1/dw0ydn312uhcbpz1fonuejqnabmz9n1ypgiysct1dtspfa5wjskw6t5ysquandqf-.jpg?1478700159&s=ef86a33e2fb6b20ce197e8af47df4455");
     height: calc(100vh - 50px);
     display: flex;
     align-items: center;

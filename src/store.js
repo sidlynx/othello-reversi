@@ -20,17 +20,17 @@ export default new Vuex.Store({
       _state = Util.init(_state);
       state.turn = _state.turn;
       state.items = Util.copy(_state.items);
-      state._history = [..._state._history];
+      state._history = Util.copy(_state._history);
     },
     play: (state, payload) => {
       let _state = { ...state };
       _state = Util.play(_state, payload.l, payload.n);
       state.turn = _state.turn;
       state.items = Util.copy(_state.items);
-      state._history = [..._state._history];
+      state._history = Util.copy(_state._history);
     },
     undo: state => {
-      let _state = { ...state };
+      let _state = Util.copy(state);
       _state = Util.undo(_state);
       state.turn = _state.turn;
       state.items = Util.copy(_state.items);

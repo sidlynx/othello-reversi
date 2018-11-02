@@ -251,11 +251,14 @@ let Util = {
   undo(state) {
     if (state._history.length) {
       let toState = Util.copy(state._history[state._history.length - 1]);
-      toState._history.splice(-1, 1);
       state = Util.copy(toState);
     }
     return state;
   },
+  copy(src) {
+    return JSON.parse(JSON.stringify(src));
+  }
+  /*
   copy(src) {
     let target = {};
     for (let prop in src) {
@@ -265,6 +268,7 @@ let Util = {
     }
     return target;
   }
+  //*/
 };
 
 export default Util;

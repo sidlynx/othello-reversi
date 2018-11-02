@@ -165,6 +165,8 @@ $backColor: #4d4d4d;
 }
 
 .from-transcript {
+  width: 540px;
+  word-break: break-all;
   textarea {
     width: 100%;
     height: 100px;

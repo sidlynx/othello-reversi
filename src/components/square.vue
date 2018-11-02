@@ -32,8 +32,6 @@ export default {
     play() {
       if (!!this.item.trappableSquares.length)
         this.$store.commit("play", { l: this.item.l, n: this.item.n });
-      //this.$store.state.items[this.l][this.n].state = "B";
-      console.log("t");
     }
   }
 };

@@ -49,14 +49,14 @@ export default new Vuex.Store({
     blackTranscript(state) {
       let transcript = [];
       for (let i = 0; i < state.transcript.length; i++) {
-        if (i % 2 == 1) transcript.push(state.transcript[i]);
+        if (i % 2 == 0) transcript.push(state.transcript[i]);
       }
       return transcript;
     },
     whiteTranscript(state) {
       let transcript = [];
       for (let i = 0; i < state.transcript.length; i++) {
-        if (i % 2 == 0) transcript.push(state.transcript[i]);
+        if (i % 2 == 1) transcript.push(state.transcript[i]);
       }
       return transcript;
     },

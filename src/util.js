@@ -223,7 +223,8 @@ let Util = {
       let move = {
         l,
         n,
-        attackedSquares: []
+        attackedSquares: [],
+        score: 0
       };
       let square = state.items[l][n];
       square.trappableSquares.forEach(square => {

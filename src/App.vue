@@ -37,7 +37,7 @@ export default {
     //align-items: center;
     justify-content: center;
     .page {
-      width: 1020px;
+      width: 1120px;
       //border-left: 1px solid grey;
       //border-right: 1px solid grey;
     }

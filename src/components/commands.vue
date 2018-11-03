@@ -9,10 +9,11 @@
     <div class="square undo" @click="undo" title="undo">
       <i class="fas fa-undo"></i>
     </div>
-    <div class="winner">
-      <div v-if="!$store.getters.canPlay" style="height:100%;" class="center-vertical">
-        <span v-if="$store.getters.scoreB > $store.getters.scoreW">Black </span><span v-if="$store.getters.scoreW > $store.getters.scoreB">White </span> &nbsp; player Wins
-      </div>
+    <div class="square plus" @click="newGamePc" title="undo">
+      <i class="fas fa-laptop"></i>
+    </div>
+    <div class="square undo" @click="newGameHuman" title="undo">
+      <i class="fas fa-user"></i>
     </div>
   </div>
 </template>
@@ -28,7 +29,9 @@ export default {
     },
     help() {
       window.open("https://en.wikipedia.org/wiki/Reversi");
-    }
+    },
+    newGamePc() {},
+    newGameHuman() {}
   },
   components: {
     MButton

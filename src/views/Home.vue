@@ -1,6 +1,8 @@
 <template>
   <div class="container center-horizontal center-vertical">
     <div class="home">
+
+      <new-game-dialog v-if="$store.state.newGameDialogShown" />
       <div class="left transcript">
         <transcript type="B" />
       </div>
@@ -21,13 +23,15 @@ import Board from "@/components/board.vue";
 import Transcript from "@/components/transcript.vue";
 import Info from "@/components/info.vue";
 import Commands from "@/components/commands.vue";
+import NewGameDialog from "@/components/dialog/new_game.vue";
 export default {
   name: "home",
   components: {
     Board,
     Transcript,
     Info,
-    Commands
+    Commands,
+    NewGameDialog
   }
 };
 </script>
@@ -58,6 +62,17 @@ export default {
       .no-moves-yet {
         text-align: center;
         font-size: 18px;
+      }
+    }
+    .dialog {
+      width: 930px;
+      height: 640px;
+      background-color: #fff;
+      position: absolute;
+      display: block;
+      opacity: 0.9;
+      .container {
+        width: 540px;
       }
     }
   }

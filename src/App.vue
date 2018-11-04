@@ -18,7 +18,7 @@ export default {
     AppHeader
   },
   created() {
-    this.$store.commit("init");
+    this.$store.dispatch("initForSinglePlayer");
   }
 };
 </script>

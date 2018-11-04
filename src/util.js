@@ -1,6 +1,6 @@
 import Square from "./cls/square.js";
 let Util = {
-  init: state => {
+  init: (state, mode) => {
     state.letters.forEach(l => {
       state.items[l] = {};
       state.numbers.forEach(n => {
@@ -11,7 +11,16 @@ let Util = {
     state.items["d"]["5"].state = "B";
     state.items["e"]["4"].state = "B";
     state.items["e"]["5"].state = "W";
-    return Util.play(state);
+    state.letters.forEach(l => {
+      state.numbers.forEach(n => {
+        let square = state.items[l][n];
+        square.trappableSquares = Util.getTrappableSquares(state, l, n);
+      });
+    });
+    state.transcript = [];
+    state.turn = "B";
+    state.mode = mode;
+    return state;
   },
   getTrappableSquares(state, l, n) {
     let item = state.items[l][n];
@@ -219,26 +228,21 @@ let Util = {
     return trappableItems;
   },
   play(state, l, n) {
-    if (l && n) {
-      let move = {
-        l,
-        n,
-        attackedSquares: [],
-        score: 0
-      };
-      let square = state.items[l][n];
-      square.trappableSquares.forEach(square => {
-        state.items[square.l][square.n].state = state.turn;
-        move.attackedSquares.push({ l: square.l, n: square.n });
-      });
+    let move = {
+      l,
+      n,
+      attackedSquares: [],
+      score: 0
+    };
+    let square = state.items[l][n];
+    square.trappableSquares.forEach(square => {
+      state.items[square.l][square.n].state = state.turn;
+      move.attackedSquares.push({ l: square.l, n: square.n });
+    });
 
-      square.state = state.turn;
-      state.turn = state.turn === "B" ? "W" : "B";
-      state.transcript.push(move);
-    } else {
-      state.transcript = [];
-      state.turn = "B";
-    }
+    square.state = state.turn;
+    state.turn = state.turn === "B" ? "W" : "B";
+    state.transcript.push(move);
 
     state.letters.forEach(l => {
       state.numbers.forEach(n => {
@@ -246,6 +250,7 @@ let Util = {
         square.trappableSquares = Util.getTrappableSquares(state, l, n);
       });
     });
+
     return state;
   },
   undo(state) {
@@ -271,6 +276,38 @@ let Util = {
   },
   copy(src) {
     return JSON.parse(JSON.stringify(src));
+  },
+  laptopPlay(state) {
+    let attackableSquares = [];
+    state.letters.forEach(l => {
+      state.numbers.forEach(n => {
+        let item = state.items[l][n];
+        if (item.trappableSquares.length) {
+          attackableSquares.push({ l, n });
+        }
+      });
+    });
+    let max = attackableSquares.length - 1,
+      min = 0;
+    let rand = Math.floor(Math.random() * (max - min + 1) + min);
+
+    return Util.play(
+      state,
+      attackableSquares[rand].l,
+      attackableSquares[rand].n
+    );
+  },
+  canPlay(state) {
+    let attackableSquaresCount = 0;
+    state.letters.forEach(l => {
+      state.numbers.forEach(n => {
+        let item = state.items[l][n];
+        if (item.trappableSquares.length) {
+          attackableSquaresCount++;
+        }
+      });
+    });
+    return attackableSquaresCount > 0;
   }
 };
 

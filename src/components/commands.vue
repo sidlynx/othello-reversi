@@ -1,7 +1,7 @@
 <template>
   <div class="commands-component">
-    <div class="square init" @click="init" title="init">
-      <i class="fas fa-times"></i>
+    <div class="square init" @click="showNeGameDialog" title="New game">
+      <i class="fas fa-plus"></i>
     </div>
     <div class="square help" title="help" @click="help">
       <i class="fas fa-question"></i>
@@ -9,11 +9,8 @@
     <div class="square undo" @click="undo" title="undo">
       <i class="fas fa-undo"></i>
     </div>
-    <div class="square plus" @click="newGamePc" title="undo">
-      <i class="fas fa-laptop"></i>
-    </div>
-    <div class="square undo" @click="newGameHuman" title="undo">
-      <i class="fas fa-user"></i>
+    <div class="center-vertical copy" style="flex-basis:100%;font-weight:bold;">
+      &copy; &lt;mohammed.hamdoune@gmail.com&gt;
     </div>
   </div>
 </template>
@@ -21,17 +18,15 @@
 import MButton from "./button.vue";
 export default {
   methods: {
-    init() {
-      this.$store.commit("init");
-    },
     undo() {
       this.$store.commit("undo");
     },
     help() {
       window.open("https://en.wikipedia.org/wiki/Reversi");
     },
-    newGamePc() {},
-    newGameHuman() {}
+    showNeGameDialog() {
+      this.$store.dispatch("showNeGameDialog");
+    }
   },
   components: {
     MButton
@@ -52,8 +47,6 @@ export default {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    &.init {
-    }
   }
   .winner {
     font-size: 30px;

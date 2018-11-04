@@ -1,9 +1,16 @@
 <template>
   <div class="component-info">
-    <div class="winner" v-if="!$store.getters.canPlay">
+    <div class="winner" v-if="!$store.getters.canPlay && displayed">
       <div class="icon center-horizontal center-vertical"><i class="fas fa-trophy"></i></div>
       <div class="message center-horizontal center-vertical">
-        <span v-if="$store.getters.scoreB > $store.getters.scoreW">Black </span><span v-if="$store.getters.scoreW > $store.getters.scoreB">White </span> &nbsp; player Wins
+        <span v-if="$store.getters.scoreB > $store.getters.scoreW">
+          <span v-if="$store.state.mode === '2'">Black player wins</span>
+          <span v-else>You win</span>
+        </span>
+        <span v-if="$store.getters.scoreW > $store.getters.scoreB">
+          <span v-if="$store.state.mode === '2'">White playe wins</span>
+          <span v-else>Pc wins</span>
+        </span>
       </div>
       <div class="icon center-horizontal center-vertical"><i class="fas fa-trophy"></i></div>
     </div>
@@ -12,7 +19,23 @@
 </template>
 <script>
 export default {
-  computed: {}
+  data() {
+    return {
+      displayed: false,
+      interval: 500
+    };
+  },
+  methods: {
+    toggle() {
+      this.displayed = !this.displayed;
+      setTimeout(() => {
+        this.toggle();
+      }, this.interval);
+    }
+  },
+  created() {
+    this.toggle();
+  }
 };
 </script>
 <style lang="scss" scoped>

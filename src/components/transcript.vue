@@ -25,7 +25,20 @@ export default {
         : this.$store.getters.whiteTranscript;
     },
     name() {
-      return this.type === "B" ? "Black" : "White";
+      let name = "";
+      if (this.type === "B") {
+        if (this.$store.state.mode === "2") {
+          return "Black";
+        } else {
+          return "You";
+        }
+      } else {
+        if (this.$store.state.mode === "2") {
+          return "White";
+        } else {
+          return "PC";
+        }
+      }
     },
     score() {
       return this.type === "B"

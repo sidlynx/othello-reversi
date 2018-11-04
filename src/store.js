@@ -11,7 +11,8 @@ export default new Vuex.Store({
     items: {},
     letters: ["a", "b", "c", "d", "e", "f", "g", "h"],
     numbers: ["1", "2", "3", "4", "5", "6", "7", "8"],
-    _history: []
+    mode: "1",
+    newGameDialogShown: false
   },
   getters: {
     scoreB(state) {
@@ -72,12 +73,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    init: state => {
-      let _state = { ...state };
-      _state = Util.init(_state);
+    init: (state, payload) => {
+      let _state = Util.copy(state);
+      _state = Util.init(_state, payload);
       state.turn = _state.turn;
       state.items = Util.copy(_state.items);
       state.transcript = [];
+      state.mode = _state.mode;
     },
     play: (state, payload) => {
       let _state = Util.copy(state);
@@ -85,14 +87,39 @@ export default new Vuex.Store({
       state.turn = _state.turn;
       state.items = Util.copy(_state.items);
       state.transcript = Util.copy(_state.transcript);
+      if (state.mode === "1" && Util.canPlay(state)) {
+        setTimeout(() => {
+          let _state = Util.copy(state);
+          _state = Util.laptopPlay(_state, payload.l, payload.n);
+          state.turn = _state.turn;
+          state.items = Util.copy(_state.items);
+          state.transcript = Util.copy(_state.transcript);
+        }, 500);
+      }
     },
     undo: state => {
       let _state = Util.copy(state);
       _state = Util.undo(_state);
+      if (state.mode === "1") {
+        _state = Util.undo(_state);
+      }
       state.turn = _state.turn;
       state.items = Util.copy(_state.items);
       state.transcript = Util.copy(_state.transcript);
     }
   },
-  actions: {}
+  actions: {
+    initForSinglePlayer(context) {
+      context.commit("init", "1");
+    },
+    initForTwoPlayers(context) {
+      context.commit("init", "2");
+    },
+    showNeGameDialog(context) {
+      context.state.newGameDialogShown = true;
+    },
+    hideNewGameDialog(context) {
+      context.state.newGameDialogShown = false;
+    }
+  }
 });

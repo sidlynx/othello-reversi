@@ -1,6 +1,5 @@
 <template>
   <div id="main">
-
     <div id="container">
       <div id="top">
         <div class="letter" style="flex-basis:30px;"></div>
@@ -48,11 +47,6 @@ export default {
 $backColor: #5c1308;
 $backColor: #4d4d4d;
 #main {
-  #commands {
-    border: 1px solid grey;
-    height: 60px;
-    background-color: orange;
-  }
   #container {
     width: 540px;
     height: 540px;

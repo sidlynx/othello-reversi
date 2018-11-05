@@ -25,7 +25,6 @@ export default {
         : this.$store.getters.whiteTranscript;
     },
     name() {
-      let name = "";
       if (this.type === "B") {
         if (this.$store.state.mode === "2") {
           return "Black";

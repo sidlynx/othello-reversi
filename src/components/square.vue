@@ -6,7 +6,6 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
 export default {
   props: {
     l: {
@@ -30,7 +29,7 @@ export default {
   },
   methods: {
     play() {
-      if (!!this.item.trappableSquares.length)
+      if (this.item.trappableSquares.length)
         this.$store.commit("play", { l: this.item.l, n: this.item.n });
     }
   }

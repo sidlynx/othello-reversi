@@ -15,7 +15,6 @@
       <div class="icon center-horizontal center-vertical"><i class="fas fa-trophy"></i></div>
     </div>
   </div>
-  </div>
 </template>
 <script>
 export default {

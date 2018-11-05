@@ -1,10 +1,10 @@
 <template>
     <div class="dialog">
-        <div class="dialog-container center-horizontal center-vertical" style="width:100%;height:100%;">
-            <div class="centered" style="width:540px;height:540px;">
-                <div class="title center-horizontal" style="font-size:42px;margin-top:154px;">Choose the game mode</div>
-                <div class="vs center-horizontal" style="border:1px solid grey;font-size:60px;">
-                    <div style="width:179pxpx;border:1px solid grey;display:flex;cursor:pointer;" @click="startGameForTwoPlayers">
+        <div class="dialog-container center-horizontal center-vertical">
+            <div class="centered">
+                <div class="title center-horizontal">Choose the game mode</div>
+                <div class="vs center-horizontal" style="">
+                    <div class="holder" @click="startGameForTwoPlayers">
                         <div>
                             <i class="fas fa-user"></i>
                         </div>
@@ -14,8 +14,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="vs center-horizontal" style="display:flex;border:1px solid grey;font-size:60px;margin-top:20px;" @click="startGameForSinglePlayer">
-                    <div style="width:179pxpx;border:1px solid grey;display:flex;cursor:pointer;">
+                <div class="vs center-horizontal" @click="startGameForSinglePlayer">
+                    <div class="holder" style="">
                         <div>
                             <i class="fas fa-user"></i>
                         </div>
@@ -43,3 +43,30 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.dialog {
+  .dialog-container {
+    width: 100%;
+    height: 100%;
+    .centered {
+      width: 540px;
+      height: 540px;
+      .title {
+        font-size: 42px;
+        margin-top: 100px;
+      }
+      .vs {
+        display: flex;
+        font-size: 60px;
+        justify-content: center;
+        margin-top: 20px;
+        .holder {
+          border: 1px solid grey;
+          display: flex;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+</style>
